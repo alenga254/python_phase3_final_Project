@@ -1,8 +1,8 @@
-"""Created user, category, and expense tables
+"""Add user_id and category_id to expenses
 
-Revision ID: b13c9bbea595
+Revision ID: d16e0d0f59f9
 Revises: 
-Create Date: 2025-03-12 16:48:10.819076
+Create Date: 2025-03-13 11:38:50.188807
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'b13c9bbea595'
+revision: str = 'd16e0d0f59f9'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -35,12 +35,12 @@ def upgrade() -> None:
     )
     op.create_table('expenses',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('amount', sa.Float(), nullable=False),
-    sa.Column('category_id', sa.Integer(), nullable=True),
+    sa.Column('amount', sa.Integer(), nullable=False),
+    sa.Column('timestamp', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('timestamp', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.Column('category_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

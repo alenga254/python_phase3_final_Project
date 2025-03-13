@@ -5,8 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 from database import Base
-from models.user import User
 from models.category import Category
+from models.user import User
 from models.expense import Expense
 
 # this is the Alembic Config object, which provides
